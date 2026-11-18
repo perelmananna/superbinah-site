@@ -217,6 +217,25 @@ img, svg { max-width: 100%; }
 .footer-row p { margin: 0; font-size: 15px; }
 .footer-row a { color: var(--white); }
 
+/* ---------- guest prototype ---------- */
+.hint { margin: 0; font-size: 15px; color: var(--mist); }
+.hint a { color: var(--white); }
+.form-error { margin: 0; padding: 12px 14px; border-radius: 10px; background: #FDECE6; color: #8A2A0E; font-size: 15px; font-weight: 500; }
+.proto-body { margin: 0; height: 100vh; height: 100dvh; display: flex; flex-direction: column; overflow: hidden; background: var(--sapphire-deep); }
+.proto-bar { flex: none; height: 56px; display: flex; align-items: center; gap: 16px; padding: 0 20px; background: var(--sapphire); color: var(--white); }
+.proto-bar .logo { height: 22px; width: auto; }
+.proto-title { margin: 0; padding-left: 16px; border-left: 1px solid rgba(255, 255, 255, .28); font-size: 15px; font-weight: 700; white-space: nowrap; }
+.proto-title span { margin-left: 6px; font-weight: 500; color: var(--mist); }
+.proto-actions { margin-left: auto; display: flex; gap: 20px; }
+.proto-actions a { color: var(--white); font-size: 15px; font-weight: 500; text-decoration: none; white-space: nowrap; }
+.proto-actions a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.proto-frame { flex: 1; display: block; width: 100%; border: 0; background: var(--white); }
+@media (max-width: 640px) {
+  .proto-bar { gap: 12px; padding: 0 14px; }
+  .proto-title span, .proto-about { display: none; }
+}
+@media (max-width: 380px) { .proto-title { display: none; } }
+
 /* ---------- responsive ---------- */
 @media (max-width: 1040px) {
   .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }

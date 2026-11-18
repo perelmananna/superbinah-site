@@ -81,7 +81,7 @@ const cta = () => `
 </section>`;
 
 // ---------- page shell ----------
-function layout({ title, description, urlPath = '/', body, active, script = '' }) {
+function layout({ title, description, urlPath = '/', body, active, script = '', noindex = false }) {
   const fullTitle = title ? `${title} · SuperBinah` : 'SuperBinah · Ideas, built. AI solution development';
   const desc = description || site.description;
   const url = site.url + urlPath;
@@ -93,7 +93,7 @@ function layout({ title, description, urlPath = '/', body, active, script = '' }
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(fullTitle)}</title>
-<meta name="description" content="${esc(desc)}">
+<meta name="description" content="${esc(desc)}">${noindex ? '\n<meta name="robots" content="noindex, nofollow">' : ''}
 <link rel="canonical" href="${url}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SuperBinah">
@@ -247,6 +247,7 @@ function projectPage(p) {
     <p class="crumbs"><a href="/projects">Projects</a> / ${esc(p.name)}</p>
     <h1 class="h0">${esc(p.name)}</h1>
     <p class="lead lead-mist">${esc(p.summary)}</p>
+    ${p.prototype ? `<div class="actions"><a class="btn btn-white" href="/projects/${esc(p.slug)}/prototype">Open the prototype</a><span class="hint">Guest login required</span></div>` : ''}
     <dl class="meta">${meta}</dl>
   </div>
 </section>
@@ -315,6 +316,71 @@ function notFound() {
   return layout({ title: 'Page not found', urlPath: '/404', body });
 }
 
+
+// ---------- guest prototype (sign-in page is public; the prototype page is guarded by middleware.js) ----------
+function signInPage(p) {
+  const body = `
+<section class="band band-sapphire contact-band">
+  <div class="wrap contact">
+    <div class="stack">
+      <p class="crumbs"><a href="/projects/${esc(p.slug)}">${esc(p.name)}</a> / Guest access</p>
+      <h1 class="h0">${esc(p.name)} prototype</h1>
+      <p class="lead lead-mist">This prototype is shared with invited guests. Sign in with the guest username and password you received.</p>
+      <p class="hint">No login yet? Ask at <a href="mailto:${esc(site.email)}">${esc(site.email)}</a>.</p>
+    </div>
+    <form class="form" method="post" action="/projects/${esc(p.slug)}/sign-in">
+      <p class="form-error" id="signin-error" role="alert" hidden></p>
+      <div class="field"><label for="g-user">Username</label><input id="g-user" name="username" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" required></div>
+      <div class="field"><label for="g-pass">Password</label><input id="g-pass" name="password" type="password" autocomplete="current-password" required></div>
+      <button class="btn btn-sapphire btn-block" type="submit">Sign in</button>
+      <p class="form-note">Guest access is view-only. You stay signed in on this device for 7 days.</p>
+    </form>
+  </div>
+</section>`;
+  const script = `<script>
+(function () {
+  var e = new URLSearchParams(location.search).get('error');
+  var box = document.getElementById('signin-error');
+  if (!e || !box) return;
+  box.textContent = e === 'setup' ? 'Guest access isn’t switched on yet. Please try again later.' : 'That username or password didn’t match. Please try again.';
+  box.hidden = false;
+  document.getElementById('g-user').focus();
+})();
+</script>`;
+  return layout({ title: `${p.name} prototype: guest access`, description: `Guest access to the ${p.name} prototype by SuperBinah.`, urlPath: `/projects/${p.slug}/sign-in`, body, active: 'projects', script, noindex: true });
+}
+
+function prototypePage(p) {
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(p.name)} prototype · SuperBinah</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#2445D8">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body class="proto-body">
+<header class="proto-bar">
+  <a href="/" class="brand" aria-label="SuperBinah home">${logo('sapphire', 22)}</a>
+  <p class="proto-title">${esc(p.name)} <span>Guest prototype</span></p>
+  <nav class="proto-actions" aria-label="Prototype">
+    <a href="/projects/${esc(p.slug)}" class="proto-about">About the project</a>
+    <a href="/projects/${esc(p.slug)}/sign-out">Sign out</a>
+  </nav>
+</header>
+<iframe class="proto-frame" src="${esc(p.prototype)}" title="${esc(p.name)} prototype" allow="autoplay; clipboard-write; fullscreen" referrerpolicy="no-referrer"></iframe>
+</body>
+</html>
+`;
+}
+
 // ---------- write ----------
 function write(rel, content) {
   const file = path.join(OUT, rel);
@@ -333,10 +399,16 @@ fs.mkdirSync(OUT, { recursive: true });
 copyDir(path.join(ROOT, 'static'), OUT);
 write('index.html', home());
 write('projects/index.html', projectsPage());
-for (const p of projects) write(`projects/${p.slug}/index.html`, projectPage(p));
+for (const p of projects) {
+  write(`projects/${p.slug}/index.html`, projectPage(p));
+  if (p.prototype) {
+    write(`projects/${p.slug}/sign-in/index.html`, signInPage(p));
+    write(`projects/${p.slug}/prototype/index.html`, prototypePage(p));
+  }
+}
 write('contact/index.html', contactPage());
 write('404.html', notFound());
 const urls = ['/', '/projects', ...projects.map((p) => `/projects/${p.slug}`), '/contact'];
 write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${site.url}${u === '/' ? '' : u}</loc></url>`).join('\n')}\n</urlset>\n`);
-write('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${site.url}/sitemap.xml\n`);
+write('robots.txt', `User-agent: *\nAllow: /\nDisallow: /projects/*/prototype\nDisallow: /projects/*/sign-in\nSitemap: ${site.url}/sitemap.xml\n`);
 console.log(`Built ${urls.length} pages + 404 for ${projects.length} project(s) → dist/`);
