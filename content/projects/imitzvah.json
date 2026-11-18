@@ -1,0 +1,15 @@
+{
+  "slug": "imitzvah",
+  "order": 1,
+  "name": "iMitzvah",
+  "summary": "A personal companion for the 613 mitzvot, built on the original Torah text instead of secondhand summaries.",
+  "type": "Mobile app & web",
+  "stage": "Prototype",
+  "year": "2025–26",
+  "link": "",
+  "cover": "",
+  "images": [],
+  "challenge": "Most people meet the 613 mitzvot through layers of later summaries, and the full list feels impossibly long. The bet behind iMitzvah: show the literal source text, filter it to what actually applies to you, and the list becomes short, clear and doable.",
+  "product": "A source-first app: every mitzvah in Hebrew and English straight from the Torah text, a personal checklist filtered by age, gender and life stage, a Tzadik score that tracks progress, AI voice playback, and a visual map linking verses across the Tanach. Planned stack: React Native and Node.js, synced with Sefaria’s open text library.",
+  "status": "The product requirements are written and the first app flow is designed. Next: a mobile-first redesign of that flow and a working POC."
+}

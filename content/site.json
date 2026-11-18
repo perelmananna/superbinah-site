@@ -1,0 +1,37 @@
+{
+  "name": "SuperBinah",
+  "url": "https://superbinah.ai",
+  "tagline": "Ideas, built.",
+  "eyebrow": "AI solution development",
+  "description": "SuperBinah is an AI solution-development studio. We find the use case worth building, prove it with a working POC, then ship it as a product your team actually uses.",
+  "email": "anna@superbinah.ai",
+  "linkedin": "",
+  "founder": { "name": "Anna Perelman", "title": "Founder" },
+  "approach": {
+    "title": "Point → Line → Plane",
+    "intro": "Our logo is our method. Every engagement grows the same way: from a single point of insight, to a proven line, to a product.",
+    "steps": [
+      { "shape": "point", "label": "01 · Point", "title": "Discover", "text": "We find the one use case worth building and define how we will measure it." },
+      { "shape": "line", "label": "02 · Line", "title": "Prove", "text": "A working proof of concept on your data, so you can decide with results in hand." },
+      { "shape": "plane", "label": "03 · Plane", "title": "Build", "text": "We ship it as a real product: integrated, secure and measured." }
+    ]
+  },
+  "services": [
+    { "title": "Discovery sprints", "text": "Find the use case worth building and agree what success looks like before anyone writes code." },
+    { "title": "Rapid POCs", "text": "A working proof of concept on your real data, so decisions run on evidence, not slides." },
+    { "title": "AI apps & agents", "text": "Production-grade assistants, agents and AI features, wired into the tools your team already uses." },
+    { "title": "Enablement", "text": "Hands-on workshops and a clean handover, so your team can run, extend and trust what we build." }
+  ],
+  "meaning": {
+    "title": "Why “Binah”?",
+    "html": "Binah (<span lang=\"he\" dir=\"rtl\">בינה</span>) is Hebrew for understanding, and the word inside “AI”: <span lang=\"he\" dir=\"rtl\" class=\"nowrap\">בינה מלאכותית</span>. In Kabbalah, Binah is where a raw flash of insight gets its shape and structure. That is our job: take the point of an idea and build it into something real."
+  },
+  "cta": {
+    "title": "Got an idea?<br>Let’s build the POC.",
+    "text": "Tell us about it. We will help you find the point, then prove it."
+  },
+  "contact": {
+    "title": "Let’s find your point.",
+    "text": "Tell us about the idea. We will reply within two working days with a few questions and a time for a discovery call."
+  }
+}
