@@ -92,7 +92,15 @@ export default async function middleware(request) {
   if (action === 'sign-out') return redirect(`/projects/${slug}`, sessionCookie('', 0));
 
   if (action === 'sign-in') {
-    if (request.method !== 'POST') return; // show the sign-in page
+    if (request.method !== 'POST') {
+      if (url.searchParams.has('check')) {
+        // Setup check: says only whether the two variables reach the site, never their values.
+        return new Response(JSON.stringify({ GUEST_USERNAME: Boolean((process.env.GUEST_USERNAME || '').trim()), GUEST_PASSWORD: Boolean(process.env.GUEST_PASSWORD) }), {
+          headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
+        });
+      }
+      return; // show the sign-in page
+    }
     if (!c) return redirect(`${signIn}?error=setup`);
     let user = '', pass = '';
     try {
