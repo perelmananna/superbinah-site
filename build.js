@@ -25,7 +25,7 @@ const YEAR = new Date().getFullYear();
 // ---------- building blocks ----------
 const LOGO = { sapphire: '/img/logo-sapphire.svg', light: '/img/logo-light.svg', ink: '/img/logo-ink.svg' };
 const logo = (variant, h) =>
-  `<img src="${LOGO[variant]}" alt="SuperBinah" width="${Math.round((h * 499) / 63)}" height="${h}" class="logo">`;
+  `<img src="${LOGO[variant]}" alt="superbinah" width="${Math.round((h * 279.1875) / 36)}" height="${h}" class="logo">`;
 
 const SHAPE = {
   point: (c) => `<svg class="shape" width="34" height="34" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="${c}"/></svg>`,
@@ -82,7 +82,7 @@ const cta = () => `
 
 // ---------- page shell ----------
 function layout({ title, description, urlPath = '/', body, active, script = '', noindex = false }) {
-  const fullTitle = title ? `${title} · SuperBinah` : 'SuperBinah · Ideas, built. AI solution development';
+  const fullTitle = title ? `${title} · superbinah` : 'superbinah · Ideas, built. AI solution development';
   const desc = description || site.description;
   const url = site.url + urlPath;
   const nav = [['/#approach', 'Approach', 'approach'], ['/projects', 'Projects', 'projects'], ['/#why', 'Why Binah', 'why'], ['/contact', 'Contact', 'contact']];
@@ -96,7 +96,7 @@ function layout({ title, description, urlPath = '/', body, active, script = '', 
 <meta name="description" content="${esc(desc)}">${noindex ? '\n<meta name="robots" content="noindex, nofollow">' : ''}
 <link rel="canonical" href="${url}">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="SuperBinah">
+<meta property="og:site_name" content="superbinah">
 <meta property="og:title" content="${esc(fullTitle)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${url}">
@@ -117,7 +117,7 @@ function layout({ title, description, urlPath = '/', body, active, script = '', 
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="wrap header-row">
-    <a href="/" class="brand" aria-label="SuperBinah home">${logo('sapphire', 28)}</a>
+    <a href="/" class="brand" aria-label="superbinah home">${logo('sapphire', 28)}</a>
     <nav class="nav" aria-label="Main">${links}<a class="btn btn-white btn-sm" href="/contact">Book a call</a></nav>
     <details class="menu">
       <summary aria-label="Menu"><span></span><span></span><span></span></summary>
@@ -131,7 +131,7 @@ ${body}
 <footer class="site-footer">
   <div class="wrap footer-row">
     ${logo('sapphire', 24)}
-    <p>© ${YEAR} SuperBinah · AI solution development · <a href="mailto:${esc(site.email)}">${esc(site.email)}</a></p>
+    <p>© ${YEAR} superbinah · AI solution development · <a href="mailto:${esc(site.email)}">${esc(site.email)}</a></p>
   </div>
 </footer>
 <script>document.querySelectorAll('.menu-panel a').forEach(function (a) { a.addEventListener('click', function () { a.closest('details').removeAttribute('open'); }); });</script>
@@ -194,7 +194,7 @@ function home() {
 <section id="projects" class="band band-white">
   <div class="wrap">
     <div class="section-head head-row">
-      <div class="stack-sm"><p class="label">Projects</p><h2 class="h1">Built by SuperBinah</h2></div>
+      <div class="stack-sm"><p class="label">Projects</p><h2 class="h1">Built by superbinah</h2></div>
       <a class="text-link text-sapphire" href="/projects">All projects →</a>
     </div>
     ${projectList(projects.slice(0, 4), 2)}
@@ -229,7 +229,7 @@ function projectsPage() {
   <div class="wrap">${projectList(projects, 3)}</div>
 </section>
 ${cta()}`;
-  return layout({ title: 'Projects', description: 'Projects by SuperBinah, an AI solution-development studio: from first idea to working product.', urlPath: '/projects', body, active: 'projects' });
+  return layout({ title: 'Projects', description: 'Projects by superbinah, an AI solution-development studio: from first idea to working product.', urlPath: '/projects', body, active: 'projects' });
 }
 
 function projectPage(p) {
@@ -299,7 +299,7 @@ function contactPage() {
   });
 })();
 </script>`;
-  return layout({ title: 'Contact', description: 'Tell SuperBinah about your idea. We will help you find the point, then prove it with a working POC.', urlPath: '/contact', body, active: 'contact', script });
+  return layout({ title: 'Contact', description: 'Tell superbinah about your idea. We will help you find the point, then prove it with a working POC.', urlPath: '/contact', body, active: 'contact', script });
 }
 
 function notFound() {
@@ -347,7 +347,7 @@ function signInPage(p) {
   document.getElementById('g-user').focus();
 })();
 </script>`;
-  return layout({ title: `${p.name} prototype: guest access`, description: `Guest access to the ${p.name} prototype by SuperBinah.`, urlPath: `/projects/${p.slug}/sign-in`, body, active: 'projects', script, noindex: true });
+  return layout({ title: `${p.name} prototype: guest access`, description: `Guest access to the ${p.name} prototype by superbinah.`, urlPath: `/projects/${p.slug}/sign-in`, body, active: 'projects', script, noindex: true });
 }
 
 function prototypePage(p) {
@@ -356,7 +356,7 @@ function prototypePage(p) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(p.name)} prototype · SuperBinah</title>
+<title>${esc(p.name)} prototype · superbinah</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#2445D8">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -368,7 +368,7 @@ function prototypePage(p) {
 </head>
 <body class="proto-body">
 <header class="proto-bar">
-  <a href="/" class="brand" aria-label="SuperBinah home">${logo('sapphire', 22)}</a>
+  <a href="/" class="brand" aria-label="superbinah home">${logo('sapphire', 22)}</a>
   <p class="proto-title">${esc(p.name)} <span>Guest prototype</span></p>
   <nav class="proto-actions" aria-label="Prototype">
     <a href="/projects/${esc(p.slug)}" class="proto-about">About the project</a>

@@ -1,6 +1,6 @@
 # superbinah.ai
 
-The SuperBinah website. A small static site with no dependencies: `node build.js` turns the content files into finished pages in `dist/`, and Vercel serves them at superbinah.ai.
+The superbinah website. A small static site with no dependencies: `node build.js` turns the content files into finished pages in `dist/`, and Vercel serves them at superbinah.ai.
 
 ```
 content/
